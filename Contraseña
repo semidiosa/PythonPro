@@ -1,0 +1,11 @@
+import random
+character = "1234567890abcdefghijklmnopqrstuvwxyzABZDEFGHIJKLMNOPQRSTUVWXYZ!@$%*=+-?/><"
+
+len = int(input("Que de larga quieres tu contraseña?"))
+
+password = ""
+for i in range(len):
+    creada = random.choice(character)
+    password += creada
+
+print("La contraseña creada es:", password)
