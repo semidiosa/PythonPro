@@ -1,4 +1,5 @@
 import discord
+import random
 from discord.ext import commands
 
 intents = discord.Intents.default()
@@ -26,5 +27,9 @@ async def test(ctx, *, arg):
 async def add(ctx, a: int, b: int):
     await ctx.send(a + b)
 
+@bot.command()
+async def joined(ctx, member: discord.Member):
+    """Says when a member joined."""
+    await ctx.send(f'{member.name} joined {discord.utils.format_dt(member.joined_at)}')
 
 bot.run("Token")
