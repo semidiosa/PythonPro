@@ -1,6 +1,8 @@
 import discord
 import random
+import os
 from discord.ext import commands
+import requests
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -15,21 +17,39 @@ async def on_ready():
 async def hello(ctx):
     await ctx.send(f'Hola, me llamo {bot.user}!')
 
-@bot.command()
-async def heh(ctx, count_heh = 5):
-    await ctx.send("he" * count_heh)
+
 
 @bot.command()
-async def test(ctx, *, arg):
-    await ctx.send(arg)
+async def program(ctx):
+    lista_de_mempro = os.listdir('program')
+    img_name = random.choice(lista_de_mempro)
+
+    with open(f'program/{img_name}', 'rb') as f:
+            picture = discord.File(f)
+    # A continuación, podemos enviar este archivo como parámetro.
+    await ctx.send(file=picture)
 
 @bot.command()
-async def add(ctx, a: int, b: int):
-    await ctx.send(a + b)
+async def mem(ctx):
+    lista_de_membook = os.listdir('books')
+    img_book  = random.choice(lista_de_membook)
 
-@bot.command()
-async def joined(ctx, member: discord.Member):
-    """Says when a member joined."""
-    await ctx.send(f'{member.name} joined {discord.utils.format_dt(member.joined_at)}')
+    with open(f'books/{img_book}', 'rb') as f:
+         image =  discord.File(f)
+    await ctx.send(file=image)      
+
+def get_duck_image_url():    
+    url = 'https://random-d.uk/api/random'
+    res = requests.get(url)
+    data = res.json()
+    return data['url']
+
+
+@bot.command('duck')
+async def duck(ctx):
+    '''Una vez que llamamos al comando duck, 
+    el programa llama a la función get_duck_image_url'''
+    image_url = get_duck_image_url()
+    await ctx.send(image_url)
 
 bot.run("Token")
