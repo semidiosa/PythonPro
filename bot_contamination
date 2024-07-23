@@ -1,0 +1,41 @@
+import discord
+import random
+import os
+from discord.ext import commands
+import requests
+
+intents = discord.Intents.default()
+intents.message_content = True
+
+bot = commands.Bot(command_prefix='$', intents=intents)
+
+@bot.event
+async def on_ready():
+    print(f'Hemos iniciado sesion con {bot.user}')
+
+@bot.command()
+async def hello(ctx):
+    await ctx.send(f'Hola, me llamo {bot.user} y te puedo ayudar a saber mas sobre la contamination!')
+
+
+
+@bot.command()
+async def recyclar(ctx):
+    recyclar = ['puedes usar una botella para guardar esponjas',
+                'puedes usar latas como organizadores de lapizes']
+    
+    recyclaje = random.choice(recyclar)
+    await ctx.send(recyclaje)
+
+
+@bot.command()
+async def con(ctx):
+    lista_de_imagenes = os.listdir('contamination')
+    image_aleatoria = random.choice(lista_de_imagenes)
+    with open(f'contamination/{image_aleatoria}', 'rb') as f:
+            picture = discord.File(f)
+    await ctx.send(file=picture)
+
+
+
+bot.run("token")
