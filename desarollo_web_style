@@ -9,3 +9,21 @@ h1 {
     font-size: 79px; /* El tamaño de la fuente de la cabecera */
     font-family: ; /* La familia tipográfica utilizada en la cabecera */
 }
+
+@keyframes color-change {
+    0% {
+      color: #32b9b3;
+    }
+  
+    50% {
+      color: #a1c1be;
+    }
+  
+    100% {
+      color: #5bcebf;
+    }
+}
+
+h1 {
+    animation: color-change 3s infinite;
+}
